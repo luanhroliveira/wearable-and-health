@@ -29,6 +29,10 @@ public class Estado implements Serializable {
 	@Column(length = 64, nullable = false)
 	private String nome;
 
+	@NotNull
+	@Column(length = 2, nullable = false)
+	private String sigla;
+
 	@OneToMany(mappedBy = "estado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Cidade> cidades = new HashSet<>();
 
@@ -36,10 +40,11 @@ public class Estado implements Serializable {
 
 	}
 
-	public Estado(Long id, @NotNull String nome, Set<Cidade> cidades) {
+	public Estado(Long id, @NotNull String nome, @NotNull String sigla, Set<Cidade> cidades) {
 		super();
 		this.id = id;
 		this.nome = nome;
+		this.sigla = sigla;
 		this.cidades = cidades;
 	}
 
@@ -57,6 +62,14 @@ public class Estado implements Serializable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getSigla() {
+		return sigla;
+	}
+
+	public void setSigla(String sigla) {
+		this.sigla = sigla;
 	}
 
 	public Set<Cidade> getCidades() {
