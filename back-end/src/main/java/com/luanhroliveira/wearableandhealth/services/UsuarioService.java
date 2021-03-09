@@ -29,5 +29,5 @@ public class UsuarioService {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
 		return usuario.map(x -> new UsuarioDTO(x)).get();
 	}
-	
+
 }
