@@ -24,7 +24,6 @@ public class EnderecoUsuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;

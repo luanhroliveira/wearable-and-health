@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.Estado;
 
 public class EstadoDTO implements Serializable {
@@ -15,6 +16,7 @@ public class EstadoDTO implements Serializable {
 	private String nome;
 	private String sigla;
 
+	@JsonIgnore
 	private List<CidadeDTO> cidades = new ArrayList<>();
 
 	public EstadoDTO() {

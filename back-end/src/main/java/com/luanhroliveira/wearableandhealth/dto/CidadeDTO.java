@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.Cidade;
 import com.luanhroliveira.wearableandhealth.entitites.Estado;
 
@@ -14,8 +15,11 @@ public class CidadeDTO implements Serializable {
 
 	private Long id;
 	private String nome;
+
+	@JsonIgnore
 	private Estado estado;
 
+	@JsonIgnore
 	private List<EnderecoUsuarioDTO> enderecos = new ArrayList<>();
 
 	public CidadeDTO() {

@@ -3,6 +3,7 @@ package com.luanhroliveira.wearableandhealth.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.Monitoramento;
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 
@@ -11,6 +12,8 @@ public class MonitoramentoDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+
+	@JsonIgnore
 	private Usuario usuario;
 	private Integer qtPassos;
 	private Double saturacaoSanguinea;

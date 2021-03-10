@@ -20,8 +20,11 @@ public class UsuarioDTO implements Serializable {
 	private Status status;
 
 	private List<ContatoUsuarioDTO> contatos = new ArrayList<>();
+
 	private List<EnderecoUsuarioDTO> enderecos = new ArrayList<>();
+
 	private List<LocalizacaoDTO> localizacao = new ArrayList<>();
+
 	private List<MonitoramentoDTO> monitoramento = new ArrayList<>();
 
 	public UsuarioDTO() {

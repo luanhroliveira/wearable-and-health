@@ -2,6 +2,7 @@ package com.luanhroliveira.wearableandhealth.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.Cidade;
 import com.luanhroliveira.wearableandhealth.entitites.EnderecoUsuario;
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
@@ -11,38 +12,42 @@ public class EnderecoUsuarioDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+
+	@JsonIgnore
 	private Usuario usuario;
-	private Cidade cidade;
+
 	private String logradouro;
 	private String numero;
 	private String complemento;
 	private String bairro;
 	private String cep;
 
+	private Cidade cidade;
+
 	public EnderecoUsuarioDTO() {
 	}
 
-	public EnderecoUsuarioDTO(Long id, Usuario usuario, Cidade cidade, String logradouro, String numero,
-			String complemento, String bairro, String cep) {
+	public EnderecoUsuarioDTO(Long id, Usuario usuario, String logradouro, String numero, String complemento,
+			String bairro, String cep, Cidade cidade) {
 		this.id = id;
 		this.usuario = usuario;
-		this.cidade = cidade;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cep = cep;
+		this.cidade = cidade;
 	}
 
 	public EnderecoUsuarioDTO(EnderecoUsuario entity) {
 		id = entity.getId();
 		usuario = entity.getUsuario();
-		cidade = entity.getCidade();
 		logradouro = entity.getLogradouro();
 		numero = entity.getNumero();
 		complemento = entity.getComplemento();
 		bairro = entity.getBairro();
 		cep = entity.getCep();
+		cidade = entity.getCidade();
 	}
 
 	public Long getId() {
@@ -59,14 +64,6 @@ public class EnderecoUsuarioDTO implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-
-	public Cidade getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(Cidade cidade) {
-		this.cidade = cidade;
 	}
 
 	public String getLogradouro() {
@@ -107,6 +104,14 @@ public class EnderecoUsuarioDTO implements Serializable {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public Cidade getCidade() {
+		return cidade;
+	}
+
+	public void setCidade(Cidade cidade) {
+		this.cidade = cidade;
 	}
 
 }

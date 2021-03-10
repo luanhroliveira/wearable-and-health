@@ -33,11 +33,11 @@ public class Cidade implements Serializable {
 	@Column(length = 64, nullable = false)
 	private String nome;
 
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "estado_id", nullable = false)
 	private Estado estado;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "cidade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EnderecoUsuario> enderecos = new HashSet<>();
 

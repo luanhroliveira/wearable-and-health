@@ -2,6 +2,7 @@ package com.luanhroliveira.wearableandhealth.dto;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.ContatoUsuario;
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
@@ -11,6 +12,8 @@ public class ContatoUsuarioDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+
+	@JsonIgnore
 	private Usuario usuario;
 	private String nome;
 	private String telefone;
