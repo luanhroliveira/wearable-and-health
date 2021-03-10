@@ -13,25 +13,24 @@ public class CidadeDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-	private Estado estado;
 	private String nome;
+	private Estado estado;
 
 	private List<EnderecoUsuarioDTO> enderecos = new ArrayList<>();
 
 	public CidadeDTO() {
 	}
 
-	public CidadeDTO(Long id, Estado estado, String nome) {
+	public CidadeDTO(Long id, String nome, Estado estado) {
 		this.id = id;
-		this.estado = estado;
 		this.nome = nome;
+		this.estado = estado;
 	}
 
 	public CidadeDTO(Cidade entity) {
 		id = entity.getId();
-		estado = entity.getEstado();
 		nome = entity.getNome();
-
+		estado = entity.getEstado();
 		enderecos = entity.getEnderecos().stream().map(x -> new EnderecoUsuarioDTO(x)).collect(Collectors.toList());
 	}
 
@@ -43,20 +42,20 @@ public class CidadeDTO implements Serializable {
 		this.id = id;
 	}
 
-	public Estado getEstado() {
-		return estado;
-	}
-
-	public void setEstado(Estado estado) {
-		this.estado = estado;
-	}
-
 	public String getNome() {
 		return nome;
 	}
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	public List<EnderecoUsuarioDTO> getEnderecos() {

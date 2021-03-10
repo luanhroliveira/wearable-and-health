@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "estado")
 public class Estado implements Serializable {
@@ -33,6 +35,7 @@ public class Estado implements Serializable {
 	@Column(length = 2, nullable = false)
 	private String sigla;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "estado", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Cidade> cidades = new HashSet<>();
 

@@ -29,6 +29,7 @@ public class EnderecoUsuario implements Serializable {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "cidade_id", nullable = false)
 	private Cidade cidade;

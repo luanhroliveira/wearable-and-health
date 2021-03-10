@@ -29,6 +29,10 @@ public class Cidade implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotNull
+	@Column(length = 64, nullable = false)
+	private String nome;
+
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "estado_id", nullable = false)
@@ -36,10 +40,6 @@ public class Cidade implements Serializable {
 
 	@OneToMany(mappedBy = "cidade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<EnderecoUsuario> enderecos = new HashSet<>();
-
-	@NotNull
-	@Column(length = 64, nullable = false)
-	private String nome;
 
 	public Cidade() {
 
@@ -61,6 +61,14 @@ public class Cidade implements Serializable {
 		this.id = id;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public Estado getEstado() {
 		return estado;
 	}
@@ -71,14 +79,6 @@ public class Cidade implements Serializable {
 
 	public Set<EnderecoUsuario> getEnderecos() {
 		return enderecos;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
 	}
 
 	@Override
