@@ -42,6 +42,7 @@ public class Localizacao implements Serializable {
 
 	@NotNull
 	@CreationTimestamp
+	@Column(columnDefinition = "datetime default current_timestamp")
 	private Instant momento;
 
 	public Localizacao() {
