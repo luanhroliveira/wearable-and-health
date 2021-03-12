@@ -5,6 +5,7 @@ import java.time.Instant;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.Monitoramento;
+import com.luanhroliveira.wearableandhealth.entitites.Sensor;
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 
 public class MonitoramentoDTO implements Serializable {
@@ -15,34 +16,25 @@ public class MonitoramentoDTO implements Serializable {
 
 	@JsonIgnore
 	private Usuario usuario;
-	private Integer qtPassos;
-	private Double saturacaoSanguinea;
-	private Double batimentoCardio;
-	private Double oximetro;
+	private Sensor sensor;
 	private Instant momento;
 
 	public MonitoramentoDTO() {
 
 	}
 
-	public MonitoramentoDTO(Long id, Usuario usuario, Integer qtPassos, Double saturacaoSanguinea,
-			Double batimentoCardio, Double oximetro, Instant momento) {
+	public MonitoramentoDTO(Long id, Usuario usuario, Sensor sensor, Instant momento) {
+		super();
 		this.id = id;
 		this.usuario = usuario;
-		this.qtPassos = qtPassos;
-		this.saturacaoSanguinea = saturacaoSanguinea;
-		this.batimentoCardio = batimentoCardio;
-		this.oximetro = oximetro;
+		this.sensor = sensor;
 		this.momento = momento;
 	}
 
 	public MonitoramentoDTO(Monitoramento entity) {
 		id = entity.getId();
 		usuario = entity.getUsuario();
-		qtPassos = entity.getQtPassos();
-		saturacaoSanguinea = entity.getSaturacaoSanguinea();
-		batimentoCardio = entity.getBatimentoCardio();
-		oximetro = entity.getOximetro();
+		sensor = entity.getSensor();
 		momento = entity.getMomento();
 	}
 
@@ -62,36 +54,12 @@ public class MonitoramentoDTO implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Integer getQtPassos() {
-		return qtPassos;
+	public Sensor getSensor() {
+		return sensor;
 	}
 
-	public void setQtPassos(Integer qtPassos) {
-		this.qtPassos = qtPassos;
-	}
-
-	public Double getSaturacaoSanguinea() {
-		return saturacaoSanguinea;
-	}
-
-	public void setSaturacaoSanguinea(Double saturacaoSanguinea) {
-		this.saturacaoSanguinea = saturacaoSanguinea;
-	}
-
-	public Double getBatimentoCardio() {
-		return batimentoCardio;
-	}
-
-	public void setBatimentoCardio(Double batimentoCardio) {
-		this.batimentoCardio = batimentoCardio;
-	}
-
-	public Double getOximetro() {
-		return oximetro;
-	}
-
-	public void setOximetro(Double oximetro) {
-		this.oximetro = oximetro;
+	public void setSensor(Sensor sensor) {
+		this.sensor = sensor;
 	}
 
 	public Instant getMomento() {

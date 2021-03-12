@@ -2,6 +2,8 @@ package com.luanhroliveira.wearableandhealth.entitites;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,28 +33,19 @@ public class Monitoramento implements Serializable {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
-	private Integer qtPassos;
-	private Double saturacaoSanguinea;
-	private Double batimentoCardio;
-	private Double oximetro;
+	@ManyToOne
+	@JoinColumn(name = "sensor_id", nullable = false)
+	private Sensor sensor;
+
+	private Double valorSensorDouble;
+	private String valorSensorString;
+	private Boolean valorSensorBoolean;
 
 	@NotNull
 	@CreationTimestamp
 	private Instant momento;
 
 	public Monitoramento() {
-	}
-
-	public Monitoramento(Long id, Usuario usuario, Integer qtPassos, Double saturacaoSanguinea, Double batimentoCardio,
-			Double oximetro, @NotNull Instant momento) {
-		super();
-		this.id = id;
-		this.usuario = usuario;
-		this.qtPassos = qtPassos;
-		this.saturacaoSanguinea = saturacaoSanguinea;
-		this.batimentoCardio = batimentoCardio;
-		this.oximetro = oximetro;
-		this.momento = momento;
 	}
 
 	public Long getId() {
@@ -71,36 +64,36 @@ public class Monitoramento implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Integer getQtPassos() {
-		return qtPassos;
+	public Sensor getSensor() {
+		return sensor;
 	}
 
-	public void setQtPassos(Integer qtPassos) {
-		this.qtPassos = qtPassos;
+	public void setSensor(Sensor sensor) {
+		this.sensor = sensor;
 	}
 
-	public Double getSaturacaoSanguinea() {
-		return saturacaoSanguinea;
+	public Double getValorSensorDouble() {
+		return valorSensorDouble;
 	}
 
-	public void setSaturacaoSanguinea(Double saturacaoSanguinea) {
-		this.saturacaoSanguinea = saturacaoSanguinea;
+	public void setValorSensorDouble(Double valorSensorDouble) {
+		this.valorSensorDouble = valorSensorDouble;
 	}
 
-	public Double getBatimentoCardio() {
-		return batimentoCardio;
+	public String getValorSensorString() {
+		return valorSensorString;
 	}
 
-	public void setBatimentoCardio(Double batimentoCardio) {
-		this.batimentoCardio = batimentoCardio;
+	public void setValorSensorString(String valorSensorString) {
+		this.valorSensorString = valorSensorString;
 	}
 
-	public Double getOximetro() {
-		return oximetro;
+	public Boolean getValorSensorBoolean() {
+		return valorSensorBoolean;
 	}
 
-	public void setOximetro(Double oximetro) {
-		this.oximetro = oximetro;
+	public void setValorSensorBoolean(Boolean valorSensorBoolean) {
+		this.valorSensorBoolean = valorSensorBoolean;
 	}
 
 	public Instant getMomento() {
