@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "sensor")
 public class Sensor implements Serializable {
@@ -29,6 +31,7 @@ public class Sensor implements Serializable {
 	@Column(length = 64, nullable = false)
 	private String nome;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Set<Monitoramento> monitoramento = new HashSet<>();
 

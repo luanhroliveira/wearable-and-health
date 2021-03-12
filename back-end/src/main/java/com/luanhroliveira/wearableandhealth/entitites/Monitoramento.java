@@ -2,9 +2,8 @@ package com.luanhroliveira.wearableandhealth.entitites;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -43,6 +42,7 @@ public class Monitoramento implements Serializable {
 
 	@NotNull
 	@CreationTimestamp
+	@Column(columnDefinition = "datetime default current_timestamp")
 	private Instant momento;
 
 	public Monitoramento() {

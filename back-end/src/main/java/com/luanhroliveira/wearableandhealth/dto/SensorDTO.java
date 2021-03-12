@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.Sensor;
 
 public class SensorDTO implements Serializable {
@@ -14,6 +15,7 @@ public class SensorDTO implements Serializable {
 	private Long id;
 	private String nome;
 
+	@JsonIgnore
 	private List<MonitoramentoDTO> monitoramento = new ArrayList<>();
 
 	public SensorDTO() {
