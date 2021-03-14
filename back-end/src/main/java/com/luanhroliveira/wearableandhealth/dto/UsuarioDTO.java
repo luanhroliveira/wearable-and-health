@@ -16,26 +16,23 @@ public class UsuarioDTO implements Serializable {
 	private Long id;
 	private String nome;
 	private Date dataNascimento;
-	private String cpfCnpj;
+	private String cpf;
 	private Status status;
 
 	private List<ContatoUsuarioDTO> contatos = new ArrayList<>();
-
 	private List<EnderecoUsuarioDTO> enderecos = new ArrayList<>();
-
 	private List<LocalizacaoDTO> localizacao = new ArrayList<>();
-
 	private List<MonitoramentoDTO> monitoramento = new ArrayList<>();
 
 	public UsuarioDTO() {
 
 	}
 
-	public UsuarioDTO(Long id, String nome, Date dataNascimento, String cpfCnpj, Status status) {
+	public UsuarioDTO(Long id, String nome, Date dataNascimento, String cpf, Status status) {
 		this.id = id;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
-		this.cpfCnpj = cpfCnpj;
+		this.cpf = cpf;
 		this.status = status;
 	}
 
@@ -43,13 +40,13 @@ public class UsuarioDTO implements Serializable {
 		id = entity.getId();
 		nome = entity.getNome();
 		dataNascimento = entity.getDataNascimento();
-		cpfCnpj = entity.getCpfCnpj();
+		cpf = entity.getCpf();
 		status = entity.getStatus();
 
 		contatos = entity.getContatos().stream().map(x -> new ContatoUsuarioDTO(x)).collect(Collectors.toList());
-		enderecos = entity.getEndereco().stream().map(x -> new EnderecoUsuarioDTO(x)).collect(Collectors.toList());
-		localizacao = entity.getLocalizacao().stream().map(x -> new LocalizacaoDTO(x)).collect(Collectors.toList());
-		monitoramento = entity.getMonitoramento().stream().map(x -> new MonitoramentoDTO(x))
+		enderecos = entity.getEnderecos().stream().map(x -> new EnderecoUsuarioDTO(x)).collect(Collectors.toList());
+		localizacao = entity.getLocalizacoes().stream().map(x -> new LocalizacaoDTO(x)).collect(Collectors.toList());
+		monitoramento = entity.getMonitoramentos().stream().map(x -> new MonitoramentoDTO(x))
 				.collect(Collectors.toList());
 	}
 
@@ -77,12 +74,12 @@ public class UsuarioDTO implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getCpfCnpj() {
-		return cpfCnpj;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setCpfCnpj(String cpfCnpj) {
-		this.cpfCnpj = cpfCnpj;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public Status getStatus() {

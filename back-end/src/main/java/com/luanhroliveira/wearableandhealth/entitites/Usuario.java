@@ -45,54 +45,52 @@ public class Usuario implements Serializable {
 
 	@NotNull
 	@CPF(message = "CPF inválido!")
-	@CNPJ(message = "CNPJ inválido!")
-	@Column(length = 20, unique = true, nullable = false)
-	private String cpfCnpj;
+	@Column(length = 14, unique = true, nullable = false)
+	private String cpf;
 
 	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(length = 20, columnDefinition = "varchar(20) default 'ATIVO'")
+	@Column(columnDefinition = "varchar default 'ATIVO'")
 	private Status status;
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<ContatoUsuario> contatos = new HashSet<>();
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<EnderecoUsuario> endereco = new HashSet<>();
+	private Set<EnderecoUsuario> enderecos = new HashSet<>();
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Localizacao> localizacao = new HashSet<>();
+	private Set<Localizacao> localizacoes = new HashSet<>();
 
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<Monitoramento> monitoramento = new HashSet<>();
+	private Set<Monitoramento> monitoramentos = new HashSet<>();
 
 	public Usuario() {
 	}
 
 	public Usuario(Long id, @NotNull String nome, @NotNull Date dataNascimento,
-			@NotNull @CPF(message = "CPF inválido!") @CNPJ(message = "CNPJ inválido!") String cpfCnpj,
-			@NotNull Status status, Set<ContatoUsuario> contatos, Set<EnderecoUsuario> endereco,
-			Set<Localizacao> localizacao, Set<Monitoramento> monitoramento) {
+			@NotNull @CPF(message = "CPF inválido!") String cpf, @NotNull Status status, Set<ContatoUsuario> contatos,
+			Set<EnderecoUsuario> enderecos, Set<Localizacao> localizacoes, Set<Monitoramento> monitoramentos) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
-		this.cpfCnpj = cpfCnpj;
+		this.cpf = cpf;
 		this.status = status;
 		this.contatos = contatos;
-		this.endereco = endereco;
-		this.localizacao = localizacao;
-		this.monitoramento = monitoramento;
+		this.enderecos = enderecos;
+		this.localizacoes = localizacoes;
+		this.monitoramentos = monitoramentos;
 	}
 
 	public Usuario(Long id, @NotNull String nome, @NotNull Date dataNascimento,
-			@NotNull @CPF(message = "CPF inválido!") @CNPJ(message = "CNPJ inválido!") String cpfCnpj,
+			@NotNull @CPF(message = "CPF inválido!") @CNPJ(message = "CNPJ inválido!") String cpf,
 			@NotNull Status status) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
-		this.cpfCnpj = cpfCnpj;
+		this.cpf = cpf;
 		this.status = status;
 	}
 
@@ -120,12 +118,12 @@ public class Usuario implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 
-	public String getCpfCnpj() {
-		return cpfCnpj;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setCpfCnpj(String cpfCnpj) {
-		this.cpfCnpj = cpfCnpj;
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public Status getStatus() {
@@ -140,16 +138,16 @@ public class Usuario implements Serializable {
 		return contatos;
 	}
 
-	public Set<EnderecoUsuario> getEndereco() {
-		return endereco;
+	public Set<EnderecoUsuario> getEnderecos() {
+		return enderecos;
 	}
 
-	public Set<Localizacao> getLocalizacao() {
-		return localizacao;
+	public Set<Localizacao> getLocalizacoes() {
+		return localizacoes;
 	}
 
-	public Set<Monitoramento> getMonitoramento() {
-		return monitoramento;
+	public Set<Monitoramento> getMonitoramentos() {
+		return monitoramentos;
 	}
 
 	@Override

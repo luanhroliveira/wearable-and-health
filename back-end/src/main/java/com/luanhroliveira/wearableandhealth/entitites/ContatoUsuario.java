@@ -134,5 +134,5 @@ public class ContatoUsuario implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }

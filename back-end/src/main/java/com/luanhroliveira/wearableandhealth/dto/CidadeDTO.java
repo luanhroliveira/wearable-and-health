@@ -16,7 +16,6 @@ public class CidadeDTO implements Serializable {
 	private Long id;
 	private String nome;
 
-	@JsonIgnore
 	private Estado estado;
 
 	@JsonIgnore
