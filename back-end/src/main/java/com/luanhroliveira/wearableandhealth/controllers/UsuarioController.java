@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,9 +46,15 @@ public class UsuarioController {
 		return ResponseEntity.created(uri).body(dto);
 	}
 
-	@PutMapping("{id}")
+	@PutMapping(value = "{id}")
 	public ResponseEntity<UsuarioDTO> update(@PathVariable Long id, @RequestBody UsuarioDTO dto) {
 		dto = usuarioService.update(id, dto);
 		return ResponseEntity.ok().body(dto);
+	}
+
+	@DeleteMapping(value = "{id}")
+	private ResponseEntity<UsuarioDTO> delete(@PathVariable Long id) {
+		usuarioService.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 }

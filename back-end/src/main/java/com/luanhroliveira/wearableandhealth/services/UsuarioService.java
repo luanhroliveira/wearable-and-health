@@ -133,4 +133,7 @@ public class UsuarioService {
 
 	}
 
+	public void delete(Long id) {
+		usuarioRepository.deleteById(id);
+	}
 }
