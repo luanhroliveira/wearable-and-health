@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +19,8 @@ import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
 import com.luanhroliveira.wearableandhealth.repositories.ContatoUsuarioRepository;
 import com.luanhroliveira.wearableandhealth.repositories.EnderecoUsuarioRepository;
 import com.luanhroliveira.wearableandhealth.repositories.UsuarioRepository;
+import com.luanhroliveira.wearableandhealth.services.exceptions.AuthorizationException;
+import com.luanhroliveira.wearableandhealth.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UsuarioService {
@@ -40,7 +41,7 @@ public class UsuarioService {
 	@Transactional(readOnly = true)
 	public UsuarioDTO findById(Long id) {
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
-		return usuario.map(x -> new UsuarioDTO(x)).get();
+		return usuario.map(x -> new UsuarioDTO(x)).orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 
 	@Transactional
@@ -48,11 +49,11 @@ public class UsuarioService {
 		try {
 
 			if (dto.getContatos().size() == 0) {
-				throw new AuthorizationServiceException("Necessário ao mínimo 1(um) contato para o usuário!");
+				throw new AuthorizationException("Necessário ao mínimo 1(um) contato para o usuário!");
 			} else if (dto.getEnderecos().size() == 0) {
-				throw new AuthorizationServiceException("Necessário ao mínimo 1(um) endereço para o usuário!");
+				throw new AuthorizationException("Necessário ao mínimo 1(um) endereço para o usuário!");
 			} else if (dto.getDataNascimento().after(new Date())) {
-				throw new AuthorizationServiceException("Data de nascimento não pode ser maior que a data atual!");
+				throw new AuthorizationException("Data de nascimento não pode ser maior que a data atual!");
 			}
 
 			Usuario usuario = new Usuario(null, dto.getNome(), dto.getDataNascimento(), dto.getCpf(), Status.ATIVO);
@@ -74,17 +75,15 @@ public class UsuarioService {
 			enderecoRepositpry.saveAll(usuario.getEnderecos());
 
 			return new UsuarioDTO(usuario);
-		} catch (RuntimeException e) {
-			throw new RuntimeException(e.getMessage());
+		} catch (AuthorizationException e) {
+			throw new AuthorizationException(e.getMessage());
 		}
 	}
 
 	public UsuarioDTO update(Long id, UsuarioDTO dto) {
-
 		try {
-
 			if (dto.getDataNascimento().after(new Date())) {
-				throw new AuthorizationServiceException("Data de nascimento não pode ser maior que a data atual!");
+				throw new AuthorizationException("Data de nascimento não pode ser maior que a data atual!");
 			}
 
 			Usuario usuario = usuarioRepository.getOne(id);
@@ -93,9 +92,8 @@ public class UsuarioService {
 			usuario = usuarioRepository.save(usuario);
 
 			return new UsuarioDTO(usuario);
-
-		} catch (RuntimeException e) {
-			throw new RuntimeException(e.getMessage());
+		} catch (AuthorizationException e) {
+			throw new AuthorizationException(e.getMessage());
 		}
 
 	}
@@ -134,6 +132,15 @@ public class UsuarioService {
 	}
 
 	public void delete(Long id) {
-		usuarioRepository.deleteById(id);
+		try {
+			Usuario usuario = usuarioRepository.getOne(id);
+			if (usuario.getMonitoramentos().size() == 0) {
+				usuarioRepository.deleteById(id);
+			} else {
+				throw new AuthorizationException();
+			}
+		} catch (AuthorizationException e) {
+			throw new AuthorizationException("Não é possível excluir usuário que possui dados de monitoramento!");
+		}
 	}
 }
