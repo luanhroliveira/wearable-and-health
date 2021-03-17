@@ -6,6 +6,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -142,5 +145,11 @@ public class UsuarioService {
 		} catch (AuthorizationException e) {
 			throw new AuthorizationException("Não é possível excluir usuário que possui dados de monitoramento!");
 		}
+
+	}
+
+	public Page<Usuario> findPage(Integer page, Integer linesPerPage, Sort.Direction direction, String orderBy) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, direction, orderBy);
+		return usuarioRepository.findAll(pageRequest);
 	}
 }
