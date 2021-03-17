@@ -6,6 +6,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
 
@@ -14,8 +18,13 @@ public class UsuarioDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	
+	@NotEmpty(message = "Preenchimento obrigatório.")
+	@Length(min = 5,max = 120, message = "Nome deve conter de 5 a 120 caracteres.")
 	private String nome;
 	private Date dataNascimento;
+	
+	
 	private String cpf;
 	private Status status;
 

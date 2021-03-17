@@ -80,6 +80,8 @@ public class UsuarioService {
 			return new UsuarioDTO(usuario);
 		} catch (AuthorizationException e) {
 			throw new AuthorizationException(e.getMessage());
+		} catch(RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 
