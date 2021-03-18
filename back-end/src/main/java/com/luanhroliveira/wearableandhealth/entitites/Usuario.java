@@ -18,10 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.br.CNPJ;
-import org.hibernate.validator.constraints.br.CPF;
 
 import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
 
@@ -35,20 +31,15 @@ public class Usuario implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@NotNull
 	@Column(length = 120, nullable = false)
 	private String nome;
 
-	@NotNull
 	@Temporal(TemporalType.DATE)
 	private Date dataNascimento;
 
-	@NotNull
-	@CPF(message = "CPF inválido!")
 	@Column(length = 14, unique = true, nullable = false)
 	private String cpf;
 
-	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "varchar default 'ATIVO'")
 	private Status status;
@@ -62,14 +53,13 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<Localizacao> localizacoes = new HashSet<>();
 
-	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
 	private Set<Monitoramento> monitoramentos = new HashSet<>();
 
 	public Usuario() {
 	}
 
-	public Usuario(Long id, @NotNull String nome, @NotNull Date dataNascimento,
-			@NotNull @CPF(message = "CPF inválido!") String cpf, @NotNull Status status, Set<ContatoUsuario> contatos,
+	public Usuario(Long id, String nome, Date dataNascimento, String cpf, Status status, Set<ContatoUsuario> contatos,
 			Set<EnderecoUsuario> enderecos, Set<Localizacao> localizacoes, Set<Monitoramento> monitoramentos) {
 		super();
 		this.id = id;
@@ -83,9 +73,7 @@ public class Usuario implements Serializable {
 		this.monitoramentos = monitoramentos;
 	}
 
-	public Usuario(Long id, @NotNull String nome, @NotNull Date dataNascimento,
-			@NotNull @CPF(message = "CPF inválido!") @CNPJ(message = "CNPJ inválido!") String cpf,
-			@NotNull Status status) {
+	public Usuario(Long id, String nome, Date dataNascimento, String cpf, Status status) {
 		super();
 		this.id = id;
 		this.nome = nome;

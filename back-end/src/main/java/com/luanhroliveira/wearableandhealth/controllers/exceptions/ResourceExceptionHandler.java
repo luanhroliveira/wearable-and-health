@@ -3,6 +3,7 @@ package com.luanhroliveira.wearableandhealth.controllers.exceptions;
 import java.time.Instant;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.UnexpectedTypeException;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -69,6 +70,16 @@ public class ResourceExceptionHandler {
 		for (FieldError p : e.getBindingResult().getFieldErrors()) {
 			err.addError(p.getField(), p.getDefaultMessage());
 		}
+
+		return ResponseEntity.status(status).body(err);
+	}
+
+	@ExceptionHandler(UnexpectedTypeException.class)
+	public ResponseEntity<StandardError> authorization(UnexpectedTypeException e, HttpServletRequest request) {
+		String error = "Validation error";
+		HttpStatus status = HttpStatus.UNAUTHORIZED;
+		StandardError err = new StandardError(Instant.now(), status.value(), error, e.getMessage(),
+				request.getRequestURI());
 
 		return ResponseEntity.status(status).body(err);
 	}

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.luanhroliveira.wearableandhealth.dto.UsuarioDTO;
+import com.luanhroliveira.wearableandhealth.dto.UsuarioNewDTO;
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 import com.luanhroliveira.wearableandhealth.services.UsuarioService;
 
@@ -44,7 +45,7 @@ public class UsuarioController {
 			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
 			@RequestParam(value = "direction", defaultValue = "ASC") Sort.Direction direction) {
 		Page<Usuario> listUsuario = usuarioService.findPage(page, linesPerPage, direction, orderBy);
-		
+
 		return ResponseEntity.ok().body(listUsuario.map(x -> new UsuarioDTO(x)));
 	}
 
@@ -55,7 +56,7 @@ public class UsuarioController {
 	}
 
 	@PostMapping
-	public ResponseEntity<UsuarioDTO> insert(@Valid @RequestBody UsuarioDTO dto) {
+	public ResponseEntity<UsuarioNewDTO> insert(@Valid @RequestBody UsuarioNewDTO dto) {
 		dto = usuarioService.insert(dto);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(dto.getId()).toUri();
@@ -63,7 +64,7 @@ public class UsuarioController {
 	}
 
 	@PutMapping(value = "{id}")
-	public ResponseEntity<UsuarioDTO> update(@PathVariable Long id, @RequestBody UsuarioDTO dto) {
+	public ResponseEntity<UsuarioDTO> update(@PathVariable Long id,  @RequestBody UsuarioDTO dto) {
 		dto = usuarioService.update(id, dto);
 		return ResponseEntity.ok().body(dto);
 	}
