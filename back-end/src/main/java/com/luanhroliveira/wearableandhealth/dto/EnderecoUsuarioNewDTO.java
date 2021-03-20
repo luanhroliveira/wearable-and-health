@@ -2,6 +2,10 @@ package com.luanhroliveira.wearableandhealth.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.luanhroliveira.wearableandhealth.entitites.Cidade;
 import com.luanhroliveira.wearableandhealth.entitites.EnderecoUsuario;
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
@@ -12,10 +16,18 @@ public class EnderecoUsuarioNewDTO implements Serializable {
 
 	private Long id;
 	private Usuario usuario;
+	@NotEmpty(message = "Logradouro deve conter de 5 a 120 caracteres.")
+	@Length(min = 5, max = 120)
 	private String logradouro;
+	@NotEmpty(message = "Número deve conter de 1 a 20 caracteres.")
+	@Length(min = 1, max = 20)
 	private String numero;
 	private String complemento;
+	@NotEmpty(message = "Bairro deve conter de 1 a 64 caracteres.")
+	@Length(min =1, max = 64)
 	private String bairro;
+	@NotEmpty(message = "CEP deve conter de 8 a 9 caracteres.")
+	@Length(min = 8, max = 9)
 	private String cep;
 	private Cidade cidade;
 

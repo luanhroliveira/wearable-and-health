@@ -2,6 +2,10 @@ package com.luanhroliveira.wearableandhealth.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.Cidade;
 import com.luanhroliveira.wearableandhealth.entitites.EnderecoUsuario;
@@ -14,10 +18,18 @@ public class EnderecoUsuarioDTO implements Serializable {
 	@JsonIgnore
 	private Usuario usuario;
 
+	@NotEmpty(message = "Logradouro não pode estar vazio.")
+	@Length(min = 5, max = 120)
 	private String logradouro;
+	@NotEmpty(message = "Número do logradouro não pode estar vazio.")
+	@Length(min = 1, max = 20)
 	private String numero;
 	private String complemento;
+	@NotEmpty(message = "Bairro não pode estar vazio.")
+	@Length(min = 5, max = 64)
 	private String bairro;
+	@NotEmpty(message = "Logradouro não pode estar vazio.")
+	@Length(min = 8, max = 9)
 	private String cep;
 
 	private Cidade cidade;

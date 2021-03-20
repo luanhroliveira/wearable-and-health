@@ -13,6 +13,7 @@ import com.luanhroliveira.wearableandhealth.dto.EnderecoUsuarioNewDTO;
 import com.luanhroliveira.wearableandhealth.entitites.EnderecoUsuario;
 import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
 import com.luanhroliveira.wearableandhealth.repositories.EnderecoUsuarioRepository;
+import com.luanhroliveira.wearableandhealth.services.exceptions.AuthorizationException;
 import com.luanhroliveira.wearableandhealth.services.exceptions.DataIntegrityException;
 
 @Service
@@ -33,6 +34,7 @@ public class EnderecoUsuarioService {
 		return Optional.ofNullable(endereco.map(x -> new EnderecoUsuarioDTO(x)).get());
 	}
 
+	@Transactional
 	public EnderecoUsuarioNewDTO insert(EnderecoUsuarioNewDTO dto) {
 		try {
 			EnderecoUsuario endereco = new EnderecoUsuario(null, dto.getUsuario(), dto.getCidade(), dto.getLogradouro(),
@@ -42,5 +44,25 @@ public class EnderecoUsuarioService {
 		} catch (DataIntegrityException e) {
 			throw new DataIntegrityException(e.getMessage());
 		}
+	}
+
+	public EnderecoUsuarioDTO update(Long id, EnderecoUsuarioDTO dto) {
+		try {
+			EnderecoUsuario endereco = enderecoRepository.getOne(id);
+			update(endereco, dto);
+			enderecoRepository.save(endereco);
+			return new EnderecoUsuarioDTO(endereco);
+		} catch (AuthorizationException e) {
+			throw new AuthorizationException(e.getMessage());
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+	}
+
+	private void update(EnderecoUsuario endereco, EnderecoUsuarioDTO dto) {
+		endereco.setCep(dto.getCep());
+		endereco.setLogradouro(dto.getLogradouro());
+		endereco.setNumero(dto.getNumero());
+		endereco.setBairro(dto.getBairro());
 	}
 }
