@@ -65,4 +65,18 @@ public class EnderecoUsuarioService {
 		endereco.setNumero(dto.getNumero());
 		endereco.setBairro(dto.getBairro());
 	}
+
+	public void delete(Long id) {
+		try {
+			EnderecoUsuario endereco = enderecoRepository.getOne(id);
+			if (endereco.getUsuario().getEnderecos().size() > 1) {
+				enderecoRepository.deleteById(id);
+			} else {
+				throw new DataIntegrityException(
+						"Necessário ao menos um contato para o usuário id.: " + endereco.getUsuario().getId());
+			}
+		} catch (DataIntegrityException e) {
+			throw new DataIntegrityException(e.getMessage());
+		}
+	}
 }

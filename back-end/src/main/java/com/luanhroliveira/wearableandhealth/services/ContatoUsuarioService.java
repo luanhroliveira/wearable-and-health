@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.luanhroliveira.wearableandhealth.dto.ContatoUsuarioDTO;
+import com.luanhroliveira.wearableandhealth.dto.ContatoUsuarioNewDTO;
 import com.luanhroliveira.wearableandhealth.entitites.ContatoUsuario;
+import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
 import com.luanhroliveira.wearableandhealth.repositories.ContatoUsuarioRepository;
 
 @Service
@@ -30,4 +32,11 @@ public class ContatoUsuarioService {
 		return Optional.ofNullable(listContato.map(x -> new ContatoUsuarioDTO(x)).get());
 	}
 
+	@Transactional
+	public ContatoUsuarioNewDTO insert(ContatoUsuarioNewDTO dto) {
+		ContatoUsuario contato = new ContatoUsuario(null, dto.getUsuario(), dto.getNome(), dto.getTelefone(),
+				dto.getEmail(), Status.ATIVO);
+		contato = contatoRepository.save(contato);
+		return new ContatoUsuarioNewDTO(contato);
+	}
 }

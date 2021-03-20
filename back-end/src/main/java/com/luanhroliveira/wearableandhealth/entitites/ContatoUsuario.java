@@ -13,7 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
@@ -33,30 +32,25 @@ public class ContatoUsuario implements Serializable {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
-	@NotNull
 	@Column(length = 120, nullable = false)
 	private String nome;
 
-	@NotNull
-	@Column(length = 14, nullable = false)
+	@Column(length = 14)
 	private String telefone;
 
-	@NotNull
 	@Email(message = "Email inválido!")
 	@Column(length = 120)
 	private String email;
 
-	@NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(length = 20, columnDefinition = "varchar(20) default 'ATIVO'")
+	@Column(length = 20, nullable = false, columnDefinition = "varchar(20) default 'ATIVO'")
 	private Status status;
 
 	public ContatoUsuario() {
 
 	}
 
-	public ContatoUsuario(Long id, Usuario usuario, @NotNull String nome, @NotNull String telefone,
-			@NotNull @Email(message = "Email inválido!") String email, @NotNull Status status) {
+	public ContatoUsuario(Long id, Usuario usuario, String nome, String telefone, String email, Status status) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
