@@ -28,11 +28,11 @@ public class Estado implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Column(length = 64, nullable = false)
+	@Column(unique = true, length = 64, nullable = false)
 	private String nome;
 
 	@NotNull
-	@Column(length = 2, nullable = false)
+	@Column(unique = true, length = 2, nullable = false)
 	private String sigla;
 
 	@JsonIgnore
@@ -43,12 +43,11 @@ public class Estado implements Serializable {
 
 	}
 
-	public Estado(Long id, @NotNull String nome, @NotNull String sigla, Set<Cidade> cidades) {
+	public Estado(Long id, String nome, String sigla) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.sigla = sigla;
-		this.cidades = cidades;
 	}
 
 	public Long getId() {

@@ -30,4 +30,10 @@ public class CidadeService {
 		return Optional.ofNullable(cidade.map(x -> new CidadeDTO(x)).get());
 	}
 
+	/*
+	 * public CidadeDTO insert() {
+	 * 
+	 * }
+	 */
+	
 }
