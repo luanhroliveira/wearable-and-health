@@ -41,4 +41,12 @@ public class EstadoService {
 			throw new DataIntegrityException(e.getMessage());
 		}
 	}
+
+	public void delete(Long id) {
+		try {
+			estadoRepository.deleteById(id);
+		} catch (DataIntegrityException e) {
+			throw new DataIntegrityException(e.getMessage());
+		}
+	}
 }
