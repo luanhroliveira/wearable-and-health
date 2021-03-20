@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.luanhroliveira.wearableandhealth.dto.CidadeDTO;
 import com.luanhroliveira.wearableandhealth.entitites.Cidade;
 import com.luanhroliveira.wearableandhealth.repositories.CidadeRepository;
+import com.luanhroliveira.wearableandhealth.services.exceptions.DataIntegrityException;
 
 @Service
 public class CidadeService {
@@ -30,10 +31,14 @@ public class CidadeService {
 		return Optional.ofNullable(cidade.map(x -> new CidadeDTO(x)).get());
 	}
 
-	/*
-	 * public CidadeDTO insert() {
-	 * 
-	 * }
-	 */
-	
+	public CidadeDTO insert(CidadeDTO dto) {
+		try {
+			Cidade cidade = new Cidade(null, dto.getEstado(), dto.getNome());
+			cidadeRepository.save(cidade);
+			return new CidadeDTO(cidade);
+		} catch (DataIntegrityException e) {
+			throw new DataIntegrityException(e.getMessage());
+		}
+	}
+
 }

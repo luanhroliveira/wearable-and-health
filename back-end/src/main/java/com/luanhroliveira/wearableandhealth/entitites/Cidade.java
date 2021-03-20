@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,7 +29,7 @@ public class Cidade implements Serializable {
 	private Long id;
 
 	@NotNull
-	@Column(length = 64, nullable = false)
+	@Column(unique = true, length = 64, nullable = false)
 	private String nome;
 
 	@ManyToOne
@@ -38,18 +37,17 @@ public class Cidade implements Serializable {
 	private Estado estado;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "cidade", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cidade", fetch = FetchType.LAZY)
 	private Set<EnderecoUsuario> enderecos = new HashSet<>();
 
 	public Cidade() {
 
 	}
 
-	public Cidade(Long id, Estado estado, Set<EnderecoUsuario> enderecos, @NotNull String nome) {
+	public Cidade(Long id, Estado estado, String nome) {
 		super();
 		this.id = id;
 		this.estado = estado;
-		this.enderecos = enderecos;
 		this.nome = nome;
 	}
 
