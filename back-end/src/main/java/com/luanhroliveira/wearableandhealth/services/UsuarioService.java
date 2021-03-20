@@ -71,7 +71,7 @@ public class UsuarioService {
 
 			for (EnderecoUsuarioDTO p : dto.getEnderecos()) {
 				EnderecoUsuario endereco = new EnderecoUsuario(null, usuario, p.getCidade(), p.getLogradouro(),
-						p.getNumero(), p.getComplemento(), p.getBairro(), p.getCep());
+						p.getNumero(), p.getComplemento(), p.getBairro(), p.getCep(), Status.ATIVO);
 				usuario.getEnderecos().add(endereco);
 			}
 
@@ -99,7 +99,7 @@ public class UsuarioService {
 
 		} catch (AuthorizationException e) {
 			throw new AuthorizationException(e.getMessage());
-		}catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			throw new RuntimeException(e.getMessage());
 		}
 	}

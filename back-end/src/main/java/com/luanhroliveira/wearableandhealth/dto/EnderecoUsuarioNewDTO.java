@@ -2,31 +2,29 @@ package com.luanhroliveira.wearableandhealth.dto;
 
 import java.io.Serializable;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.Cidade;
 import com.luanhroliveira.wearableandhealth.entitites.EnderecoUsuario;
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 
-public class EnderecoUsuarioDTO implements Serializable {
+public class EnderecoUsuarioNewDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	@JsonIgnore
+	private Long id;
 	private Usuario usuario;
-
 	private String logradouro;
 	private String numero;
 	private String complemento;
 	private String bairro;
 	private String cep;
-
 	private Cidade cidade;
 
-	public EnderecoUsuarioDTO() {
+	public EnderecoUsuarioNewDTO() {
 	}
 
-	public EnderecoUsuarioDTO(Usuario usuario, String logradouro, String numero, String complemento, String bairro,
-			String cep, Cidade cidade) {
+	public EnderecoUsuarioNewDTO(Long id, Usuario usuario, String logradouro, String numero, String complemento,
+			String bairro, String cep, Cidade cidade) {
+		this.id = id;
 		this.usuario = usuario;
 		this.logradouro = logradouro;
 		this.numero = numero;
@@ -36,7 +34,8 @@ public class EnderecoUsuarioDTO implements Serializable {
 		this.cidade = cidade;
 	}
 
-	public EnderecoUsuarioDTO(EnderecoUsuario entity) {
+	public EnderecoUsuarioNewDTO(EnderecoUsuario entity) {
+		id = entity.getId();
 		usuario = entity.getUsuario();
 		logradouro = entity.getLogradouro();
 		numero = entity.getNumero();
@@ -44,6 +43,14 @@ public class EnderecoUsuarioDTO implements Serializable {
 		bairro = entity.getBairro();
 		cep = entity.getCep();
 		cidade = entity.getCidade();
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Usuario getUsuario() {

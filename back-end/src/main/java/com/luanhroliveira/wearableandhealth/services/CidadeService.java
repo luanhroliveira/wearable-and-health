@@ -41,4 +41,8 @@ public class CidadeService {
 		}
 	}
 
+	public void delete(Long id) {
+		cidadeRepository.deleteById(id);
+	}
+
 }

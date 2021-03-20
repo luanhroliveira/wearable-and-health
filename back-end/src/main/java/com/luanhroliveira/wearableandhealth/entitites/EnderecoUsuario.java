@@ -4,15 +4,17 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
 
 @Entity
 @Table(name = "endereco")
@@ -33,31 +35,30 @@ public class EnderecoUsuario implements Serializable {
 	@JoinColumn(name = "cidade_id", nullable = false)
 	private Cidade cidade;
 
-	@NotNull
 	@Column(length = 120, nullable = false)
 	private String logradouro;
 
-	@NotNull
 	@Column(length = 20, nullable = false)
 	private String numero;
 
 	@Column(length = 32)
 	private String complemento;
 
-	@NotNull
 	@Column(length = 64, nullable = false)
 	private String bairro;
 
-	@NotNull
 	@Column(length = 9, nullable = false)
 	private String cep;
+
+	@Enumerated(EnumType.STRING)
+	private Status status;
 
 	public EnderecoUsuario() {
 
 	}
 
-	public EnderecoUsuario(Long id, Usuario usuario, Cidade cidade, @NotNull String logradouro, @NotNull String numero,
-			String complemento, @NotNull String bairro, @NotNull String cep) {
+	public EnderecoUsuario(Long id, Usuario usuario, Cidade cidade, String logradouro, String numero,
+			String complemento, String bairro, String cep, Status status) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
@@ -67,6 +68,7 @@ public class EnderecoUsuario implements Serializable {
 		this.complemento = complemento;
 		this.bairro = bairro;
 		this.cep = cep;
+		this.status = status;
 	}
 
 	public Long getId() {
@@ -131,6 +133,14 @@ public class EnderecoUsuario implements Serializable {
 
 	public void setCep(String cep) {
 		this.cep = cep;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	@Override
