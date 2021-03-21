@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.Sensor;
 
@@ -13,6 +17,8 @@ public class SensorDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
+	@NotEmpty(message = "Nome não pode estar vazio.")
+	@Length(min = 1, max = 120)
 	private String nome;
 
 	@JsonIgnore

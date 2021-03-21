@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -40,7 +39,6 @@ public class Monitoramento implements Serializable {
 	private String valorSensorString;
 	private Boolean valorSensorBoolean;
 
-	@NotNull
 	@CreationTimestamp
 	@Column(columnDefinition = "datetime default current_timestamp")
 	private Instant momento;
