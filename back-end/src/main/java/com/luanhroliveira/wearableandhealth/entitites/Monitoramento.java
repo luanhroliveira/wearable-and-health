@@ -46,6 +46,17 @@ public class Monitoramento implements Serializable {
 	public Monitoramento() {
 	}
 
+	public Monitoramento(Long id, Usuario usuario, Sensor sensor, Double valorSensorDouble, String valorSensorString,
+			Boolean valorSensorBoolean) {
+		super();
+		this.id = id;
+		this.usuario = usuario;
+		this.sensor = sensor;
+		this.valorSensorDouble = valorSensorDouble;
+		this.valorSensorString = valorSensorString;
+		this.valorSensorBoolean = valorSensorBoolean;
+	}
+
 	public Long getId() {
 		return id;
 	}

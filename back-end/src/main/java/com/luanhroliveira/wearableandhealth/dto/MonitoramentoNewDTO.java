@@ -3,18 +3,15 @@ package com.luanhroliveira.wearableandhealth.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.Monitoramento;
 import com.luanhroliveira.wearableandhealth.entitites.Sensor;
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 
-public class MonitoramentoDTO implements Serializable {
+public class MonitoramentoNewDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
-
-	@JsonIgnore
 	private Usuario usuario;
 	private Sensor sensor;
 	private Instant momento;
@@ -22,13 +19,12 @@ public class MonitoramentoDTO implements Serializable {
 	private String valorSensorString;
 	private Boolean valorSensorBoolean;
 
-	public MonitoramentoDTO() {
+	public MonitoramentoNewDTO() {
 
 	}
 
-	public MonitoramentoDTO(Long id, Usuario usuario, Sensor sensor, Instant momento, Double valorSensorDouble,
+	public MonitoramentoNewDTO(Long id, Usuario usuario, Sensor sensor, Instant momento, Double valorSensorDouble,
 			String valorSensorString, Boolean valorSensorBoolean) {
-		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.sensor = sensor;
@@ -38,7 +34,7 @@ public class MonitoramentoDTO implements Serializable {
 		this.valorSensorBoolean = valorSensorBoolean;
 	}
 
-	public MonitoramentoDTO(Monitoramento entity) {
+	public MonitoramentoNewDTO(Monitoramento entity) {
 		id = entity.getId();
 		usuario = entity.getUsuario();
 		sensor = entity.getSensor();
