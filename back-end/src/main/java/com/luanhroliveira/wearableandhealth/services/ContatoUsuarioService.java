@@ -13,6 +13,8 @@ import com.luanhroliveira.wearableandhealth.dto.ContatoUsuarioNewDTO;
 import com.luanhroliveira.wearableandhealth.entitites.ContatoUsuario;
 import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
 import com.luanhroliveira.wearableandhealth.repositories.ContatoUsuarioRepository;
+import com.luanhroliveira.wearableandhealth.services.exceptions.AuthorizationException;
+import com.luanhroliveira.wearableandhealth.services.exceptions.DataIntegrityException;
 
 @Service
 public class ContatoUsuarioService {
@@ -34,22 +36,45 @@ public class ContatoUsuarioService {
 
 	@Transactional
 	public ContatoUsuarioNewDTO insert(ContatoUsuarioNewDTO dto) {
-		ContatoUsuario contato = new ContatoUsuario(null, dto.getUsuario(), dto.getNome(), dto.getTelefone(),
-				dto.getEmail(), Status.ATIVO);
-		contato = contatoRepository.save(contato);
-		return new ContatoUsuarioNewDTO(contato);
+		try {
+			ContatoUsuario contato = new ContatoUsuario(null, dto.getUsuario(), dto.getNome(), dto.getTelefone(),
+					dto.getEmail(), Status.ATIVO);
+			contato = contatoRepository.save(contato);
+			return new ContatoUsuarioNewDTO(contato);
+		} catch (DataIntegrityException e) {
+			throw new DataIntegrityException(e.getMessage());
+		}
 	}
 
 	public ContatoUsuarioDTO update(Long id, ContatoUsuarioDTO dto) {
-		ContatoUsuario contato = contatoRepository.getOne(id);
-		update(contato, dto);
-		contato = contatoRepository.save(contato);
-		return new ContatoUsuarioDTO(contato);
+		try {
+			ContatoUsuario contato = contatoRepository.getOne(id);
+			update(contato, dto);
+			contato = contatoRepository.save(contato);
+			return new ContatoUsuarioDTO(contato);
+		} catch (AuthorizationException e) {
+			throw new AuthorizationException(e.getMessage());
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
 	}
 
 	private void update(ContatoUsuario contato, ContatoUsuarioDTO dto) {
 		contato.setNome(dto.getNome());
 		contato.setTelefone(dto.getTelefone());
 		contato.setEmail(dto.getEmail());
+	}
+
+	public void delete(Long id) {
+		try {
+			ContatoUsuario contato = contatoRepository.getOne(id);
+			if (contato.getUsuario().getContatos().size() > 1) {
+				contatoRepository.deleteById(id);
+			} else {
+				throw new DataIntegrityException("Impossível deletar, usuário necessita ao menos um contato.");
+			}
+		} catch (DataIntegrityException e) {
+			throw new DataIntegrityException(e.getMessage());
+		}
 	}
 }
