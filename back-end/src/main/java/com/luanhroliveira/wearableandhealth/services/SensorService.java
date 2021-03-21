@@ -52,4 +52,12 @@ public class SensorService {
 	private void update(Sensor sensor, SensorDTO dto) {
 		sensor.setNome(dto.getNome());
 	}
+
+	public void delete(Long id) {
+		try {
+			sensorRepository.deleteById(id);
+		} catch (DataIntegrityException e) {
+			throw new DataIntegrityException(e.getMessage());
+		}
+	}
 }
