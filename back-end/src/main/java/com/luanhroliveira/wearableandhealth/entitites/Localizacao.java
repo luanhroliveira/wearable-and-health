@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -32,15 +31,12 @@ public class Localizacao implements Serializable {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Usuario usuario;
 
-	@NotNull
 	@Column(length = 20, nullable = false)
 	private Double latitude;
 
-	@NotNull
 	@Column(length = 20, nullable = false)
 	private Double longitude;
 
-	@NotNull
 	@CreationTimestamp
 	@Column(columnDefinition = "datetime default current_timestamp")
 	private Instant momento;
@@ -49,14 +45,12 @@ public class Localizacao implements Serializable {
 
 	}
 
-	public Localizacao(Long id, Usuario usuario, @NotNull Double latitude, @NotNull Double longitude,
-			@NotNull Instant momento) {
+	public Localizacao(Long id, Usuario usuario, Double latitude, Double longitude) {
 		super();
 		this.id = id;
 		this.usuario = usuario;
 		this.latitude = latitude;
 		this.longitude = longitude;
-		this.momento = momento;
 	}
 
 	public Long getId() {
