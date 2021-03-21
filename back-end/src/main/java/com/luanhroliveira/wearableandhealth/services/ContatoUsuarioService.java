@@ -39,4 +39,17 @@ public class ContatoUsuarioService {
 		contato = contatoRepository.save(contato);
 		return new ContatoUsuarioNewDTO(contato);
 	}
+
+	public ContatoUsuarioDTO update(Long id, ContatoUsuarioDTO dto) {
+		ContatoUsuario contato = contatoRepository.getOne(id);
+		update(contato, dto);
+		contato = contatoRepository.save(contato);
+		return new ContatoUsuarioDTO(contato);
+	}
+
+	private void update(ContatoUsuario contato, ContatoUsuarioDTO dto) {
+		contato.setNome(dto.getNome());
+		contato.setTelefone(dto.getTelefone());
+		contato.setEmail(dto.getEmail());
+	}
 }

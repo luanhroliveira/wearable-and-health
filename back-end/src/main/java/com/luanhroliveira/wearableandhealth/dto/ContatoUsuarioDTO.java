@@ -2,6 +2,10 @@ package com.luanhroliveira.wearableandhealth.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.ContatoUsuario;
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
@@ -15,6 +19,9 @@ public class ContatoUsuarioDTO implements Serializable {
 
 	@JsonIgnore
 	private Usuario usuario;
+
+	@NotEmpty(message = "Nome deve ser entre 5 a 120 caracteres.")
+	@Length(min = 5, max = 120)
 	private String nome;
 	private String telefone;
 	private String email;
