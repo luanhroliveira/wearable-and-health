@@ -2,6 +2,7 @@ package com.luanhroliveira.wearableandhealth.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
@@ -10,7 +11,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.luanhroliveira.wearableandhealth.entitites.ContatoUsuario;
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
+import com.luanhroliveira.wearableandhealth.services.validation.ContatoUpdate;
 
+@ContatoUpdate
 public class ContatoUsuarioDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -24,6 +27,7 @@ public class ContatoUsuarioDTO implements Serializable {
 	@Length(min = 5, max = 120)
 	private String nome;
 	private String telefone;
+	@Email(message = "Email inválido!")
 	private String email;
 	private Status status;
 
