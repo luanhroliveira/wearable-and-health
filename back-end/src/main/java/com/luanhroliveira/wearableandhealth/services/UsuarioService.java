@@ -12,8 +12,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.luanhroliveira.wearableandhealth.dto.ContatoUsuarioDTO;
-import com.luanhroliveira.wearableandhealth.dto.EnderecoUsuarioDTO;
+import com.luanhroliveira.wearableandhealth.dto.ContatoUsuarioNewDTO;
+import com.luanhroliveira.wearableandhealth.dto.EnderecoUsuarioNewDTO;
 import com.luanhroliveira.wearableandhealth.dto.UsuarioDTO;
 import com.luanhroliveira.wearableandhealth.dto.UsuarioNewDTO;
 import com.luanhroliveira.wearableandhealth.entitites.ContatoUsuario;
@@ -60,21 +60,18 @@ public class UsuarioService {
 			} else if (dto.getDataNascimento().after(new Date())) {
 				throw new AuthorizationException("Data de nascimento não pode ser maior que a data atual!");
 			}
-
 			Usuario usuario = new Usuario(null, dto.getNome(), dto.getDataNascimento(), dto.getCpf(), Status.ATIVO);
 
-			for (ContatoUsuarioDTO p : dto.getContatos()) {
+			for (ContatoUsuarioNewDTO p : dto.getContatos()) {
 				ContatoUsuario contato = new ContatoUsuario(null, usuario, p.getNome(), p.getTelefone(), p.getEmail(),
 						Status.ATIVO);
 				usuario.getContatos().add(contato);
 			}
-
-			for (EnderecoUsuarioDTO p : dto.getEnderecos()) {
+			for (EnderecoUsuarioNewDTO p : dto.getEnderecos()) {
 				EnderecoUsuario endereco = new EnderecoUsuario(null, usuario, p.getCidade(), p.getLogradouro(),
 						p.getNumero(), p.getComplemento(), p.getBairro(), p.getCep(), Status.ATIVO);
 				usuario.getEnderecos().add(endereco);
 			}
-
 			usuario = usuarioRepository.save(usuario);
 			contatoRepository.saveAll(usuario.getContatos());
 			enderecoRepositpry.saveAll(usuario.getEnderecos());

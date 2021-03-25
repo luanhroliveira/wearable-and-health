@@ -5,19 +5,27 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.luanhroliveira.wearableandhealth.dto.SensorDTO;
 import com.luanhroliveira.wearableandhealth.entitites.Sensor;
+import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 import com.luanhroliveira.wearableandhealth.repositories.SensorRepository;
+import com.luanhroliveira.wearableandhealth.repositories.UsuarioRepository;
 import com.luanhroliveira.wearableandhealth.services.exceptions.DataIntegrityException;
+import com.luanhroliveira.wearableandhealth.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class SensorService {
 
 	@Autowired
-	private SensorRepository sensorRepository;
+	private static  SensorRepository sensorRepository;
+	@Autowired
+	private static  UsuarioRepository usuarioRepository;
 
 	@Transactional(readOnly = true)
 	public List<SensorDTO> findAll() {
@@ -28,7 +36,20 @@ public class SensorService {
 	@Transactional(readOnly = true)
 	public Optional<SensorDTO> findById(Long id) {
 		Optional<Sensor> sensor = sensorRepository.findById(id);
-		return Optional.ofNullable(sensor.map(x -> new SensorDTO(x)).get());
+		return Optional
+				.ofNullable(sensor.map(x -> new SensorDTO(x)).orElseThrow(() -> new ResourceNotFoundException(id)));
+	}
+
+	public static Page<Sensor> search(String nome, List<Long> ids, Integer page, Integer linesPerPage,
+			Sort.Direction direction, String orderBy) {
+		try {
+			PageRequest pageRequest = PageRequest.of(page, linesPerPage, direction, orderBy);
+			List<Usuario> usuarios = usuarioRepository.findAllById(ids);
+			return sensorRepository.search(nome, usuarios, pageRequest);
+		} catch (RuntimeException e) {
+			throw new RuntimeException(e.getMessage());
+		}
+		
 	}
 
 	@Transactional

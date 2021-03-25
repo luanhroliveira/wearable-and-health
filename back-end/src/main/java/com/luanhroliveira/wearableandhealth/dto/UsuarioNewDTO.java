@@ -29,8 +29,8 @@ public class UsuarioNewDTO implements Serializable {
 	private String cpf;
 	private Status status;
 
-	private List<ContatoUsuarioDTO> contatos = new ArrayList<>();
-	private List<EnderecoUsuarioDTO> enderecos = new ArrayList<>();
+	private List<ContatoUsuarioNewDTO> contatos = new ArrayList<>();
+	private List<EnderecoUsuarioNewDTO> enderecos = new ArrayList<>();
 
 	public UsuarioNewDTO() {
 
@@ -51,8 +51,8 @@ public class UsuarioNewDTO implements Serializable {
 		cpf = entity.getCpf();
 		status = entity.getStatus();
 
-		contatos = entity.getContatos().stream().map(x -> new ContatoUsuarioDTO(x)).collect(Collectors.toList());
-		enderecos = entity.getEnderecos().stream().map(x -> new EnderecoUsuarioDTO(x)).collect(Collectors.toList());
+		contatos = entity.getContatos().stream().map(x -> new ContatoUsuarioNewDTO(x)).collect(Collectors.toList());
+		enderecos = entity.getEnderecos().stream().map(x -> new EnderecoUsuarioNewDTO(x)).collect(Collectors.toList());
 	}
 
 	public Long getId() {
@@ -95,11 +95,11 @@ public class UsuarioNewDTO implements Serializable {
 		this.status = status;
 	}
 
-	public List<ContatoUsuarioDTO> getContatos() {
+	public List<ContatoUsuarioNewDTO> getContatos() {
 		return contatos;
 	}
 
-	public List<EnderecoUsuarioDTO> getEnderecos() {
+	public List<EnderecoUsuarioNewDTO> getEnderecos() {
 		return enderecos;
 	}
 

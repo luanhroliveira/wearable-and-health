@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 import com.luanhroliveira.wearableandhealth.entitites.enums.Status;
@@ -22,6 +23,8 @@ public class UsuarioDTO implements Serializable {
 	private String nome;
 	@NotEmpty(message = "Preenchimento obrigatório.")
 	private Date dataNascimento;
+	@NotEmpty(message = "Preenchimento obrigatório.")
+	@CPF(message = "CPF inválido!")
 	private String cpf;
 	private Status status;
 
@@ -33,7 +36,6 @@ public class UsuarioDTO implements Serializable {
 	}
 
 	public UsuarioDTO(String nome, Date dataNascimento, String cpf, Status status) {
-
 		this.nome = nome;
 		this.dataNascimento = dataNascimento;
 		this.cpf = cpf;

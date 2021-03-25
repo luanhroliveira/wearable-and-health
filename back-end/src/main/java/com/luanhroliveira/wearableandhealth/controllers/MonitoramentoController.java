@@ -37,6 +37,30 @@ public class MonitoramentoController {
 		return ResponseEntity.ok().body(monitoramento);
 	}
 
+	/*
+	 * @GetMapping(value = "/page/monitoramentos") public
+	 * ResponseEntity<Page<MonitoramentoDTO>> findPageMonitoramentos(
+	 * 
+	 * @RequestParam(value = "nome", defaultValue = "") String nome,
+	 * 
+	 * @RequestParam(value = "usuarios", defaultValue = "") String usuarios,
+	 * 
+	 * @RequestParam(value = "page", defaultValue = "0") Integer page,
+	 * 
+	 * @RequestParam(value = "linesPerPage", defaultValue = "24") Integer
+	 * linesPerPage,
+	 * 
+	 * @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+	 * 
+	 * @RequestParam(value = "direction", defaultValue = "ASC") Sort.Direction
+	 * direction) { String nomeDecode = URL.decodeParam(nome); List<Integer> ids =
+	 * Arrays.asList(usuarios.split(",")).stream().map(x -> Integer.parseInt(x))
+	 * .collect(Collectors.toList()); Page<Monitoramento> monitoramentos =
+	 * monitoramentoService.search(nomeDecode, ids, page, linesPerPage, direction,
+	 * orderBy); return ResponseEntity.ok().body(monitoramentos.map(x -> new
+	 * MonitoramentoDTO(x))); }
+	 */
+
 	@PostMapping
 	public ResponseEntity<MonitoramentoNewDTO> insert(@RequestBody MonitoramentoNewDTO dto) {
 		dto = monitoramentoService.insert(dto);

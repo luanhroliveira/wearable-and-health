@@ -20,6 +20,9 @@ public class MonitoramentoService {
 
 	@Autowired
 	private MonitoramentoRepository monitoramentoRepository;
+	/*
+	 * @Autowired private UsuarioRepository usuarioRepository;
+	 */
 
 	@Transactional(readOnly = true)
 	public List<MonitoramentoDTO> findAll() {
@@ -32,6 +35,14 @@ public class MonitoramentoService {
 		Optional<Monitoramento> monitoramento = monitoramentoRepository.findById(id);
 		return Optional.ofNullable(monitoramento.map(x -> new MonitoramentoDTO(x)).get());
 	}
+
+	/*
+	 * public Page<Monitoramento> search(String nome, List<Integer> ids, Integer
+	 * page, Integer linesPerPage, Sort.Direction direction, String orderBy) {
+	 * PageRequest pageRequest = PageRequest.of(page, linesPerPage, direction,
+	 * orderBy); List<Usuario> usuarios = usuarioRepository.findAllById(ids); return
+	 * monitoramentoRepository.search(nome, usuarios, pageRequest); }
+	 */
 
 	@Transactional
 	public MonitoramentoNewDTO insert(@RequestBody MonitoramentoNewDTO dto) {
