@@ -23,9 +23,9 @@ import com.luanhroliveira.wearableandhealth.services.exceptions.ResourceNotFound
 public class SensorService {
 
 	@Autowired
-	private static  SensorRepository sensorRepository;
+	private SensorRepository sensorRepository;
 	@Autowired
-	private static  UsuarioRepository usuarioRepository;
+	private UsuarioRepository usuarioRepository;
 
 	@Transactional(readOnly = true)
 	public List<SensorDTO> findAll() {
@@ -40,17 +40,18 @@ public class SensorService {
 				.ofNullable(sensor.map(x -> new SensorDTO(x)).orElseThrow(() -> new ResourceNotFoundException(id)));
 	}
 
-	public static Page<Sensor> search(String nome, List<Long> ids, Integer page, Integer linesPerPage,
-			Sort.Direction direction, String orderBy) {
-		try {
-			PageRequest pageRequest = PageRequest.of(page, linesPerPage, direction, orderBy);
-			List<Usuario> usuarios = usuarioRepository.findAllById(ids);
-			return sensorRepository.search(nome, usuarios, pageRequest);
-		} catch (RuntimeException e) {
-			throw new RuntimeException(e.getMessage());
-		}
-		
-	}
+	/*
+	 * @Transactional public Page<Sensor> search(String nome, List<Integer> ids,
+	 * Integer page, Integer linesPerPage, Sort.Direction direction, String orderBy)
+	 * { try { PageRequest pageRequest = PageRequest.of(page, linesPerPage,
+	 * direction, orderBy); List<Usuario> usuarios =
+	 * usuarioRepository.findAllById(ids);
+	 * 
+	 * return sensorRepository.search(nome, usuarios, pageRequest); } catch
+	 * (RuntimeException e) { throw new RuntimeException(e.getMessage()); }
+	 * 
+	 * }
+	 */
 
 	@Transactional
 	public SensorDTO insert(SensorDTO dto) {

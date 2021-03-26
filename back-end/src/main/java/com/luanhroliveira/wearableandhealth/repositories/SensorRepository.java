@@ -14,8 +14,13 @@ import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 
 public interface SensorRepository extends JpaRepository<Sensor, Long> {
 
-	@Transactional
-	@Query("SELECT DISTINCT obj FROM Sensor obj INNER JOIN obj.monitoramento mon INNER JOIN mon.usuario usu WHERE obj.nome LIKE %:nome% AND usu IN :usuarios")
-	Page<Sensor> search(@Param("nome") String nome, @Param("usuarios") List<Usuario> usuarios, Pageable pageRequest);
-
+	/*
+	 * @Transactional(readOnly = true)
+	 * 
+	 * @Query("SELECT DISTINCT obj FROM Sensor obj INNER JOIN obj.monitoramento mon INNER JOIN mon.usuario usu WHERE obj.nome LIKE %:nome% AND usu IN :usuarios"
+	 * ) Page<Sensor> search(@Param("nome") String nome, @Param("usuarios")
+	 * List<Usuario> usuarios, Pageable pageRequest);
+	 */
+	//Page<Sensor> findBy
+	
 }

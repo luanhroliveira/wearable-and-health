@@ -5,6 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +16,8 @@ import com.luanhroliveira.wearableandhealth.dto.MonitoramentoDTO;
 import com.luanhroliveira.wearableandhealth.dto.MonitoramentoNewDTO;
 import com.luanhroliveira.wearableandhealth.entitites.Monitoramento;
 import com.luanhroliveira.wearableandhealth.repositories.MonitoramentoRepository;
+import com.luanhroliveira.wearableandhealth.repositories.SensorRepository;
+import com.luanhroliveira.wearableandhealth.repositories.UsuarioRepository;
 import com.luanhroliveira.wearableandhealth.services.exceptions.DataIntegrityException;
 
 @Service
@@ -20,9 +25,10 @@ public class MonitoramentoService {
 
 	@Autowired
 	private MonitoramentoRepository monitoramentoRepository;
-	/*
-	 * @Autowired private UsuarioRepository usuarioRepository;
-	 */
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	@Autowired
+	private SensorRepository sensorRepository;
 
 	@Transactional(readOnly = true)
 	public List<MonitoramentoDTO> findAll() {
@@ -43,6 +49,12 @@ public class MonitoramentoService {
 	 * orderBy); List<Usuario> usuarios = usuarioRepository.findAllById(ids); return
 	 * monitoramentoRepository.search(nome, usuarios, pageRequest); }
 	 */
+
+	public Page<Monitoramento> findBySensorAndUsuario(Long idSensor, Long idUsuario, Integer page, Integer linesPerPage,
+			Sort.Direction direction, String orderBy) {
+		return monitoramentoRepository.findBySensorAndUsuario(sensorRepository.getOne(idSensor),
+				usuarioRepository.getOne(idUsuario), PageRequest.of(page, linesPerPage, direction, orderBy));
+	}
 
 	@Transactional
 	public MonitoramentoNewDTO insert(@RequestBody MonitoramentoNewDTO dto) {

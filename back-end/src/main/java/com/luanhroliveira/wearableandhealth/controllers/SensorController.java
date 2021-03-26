@@ -48,19 +48,28 @@ public class SensorController {
 		return ResponseEntity.ok().body(sensor);
 	}
 
-	@GetMapping(value = "/page")
-	public ResponseEntity<Page<SensorDTO>> findPage(@RequestParam(value = "nome", defaultValue = "") String nome,
-			@RequestParam(value = "usuarios", defaultValue = "") String usuarios,
-			@RequestParam(value = "page", defaultValue = "0") Integer page,
-			@RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage,
-			@RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
-			@RequestParam(value = "direction", defaultValue = "ASC") Sort.Direction direction) {
-		String nomeDecode = URL.decodeParam(nome);
-		List<Long> ids = Arrays.asList(usuarios.split(",")).stream().map(x -> Long.parseLong(x))
-				.collect(Collectors.toList());
-		Page<Sensor> sensores = SensorService.search(nomeDecode, ids, page, linesPerPage, direction, orderBy);
-		return ResponseEntity.ok().body(sensores.map(x -> new SensorDTO(x)));
-	}
+	/*
+	 * @GetMapping(value = "/page") public ResponseEntity<Page<SensorDTO>>
+	 * findPage(@RequestParam(value = "nome", defaultValue = "") String nome,
+	 * 
+	 * @RequestParam(value = "usuarios", defaultValue = "") String usuarios,
+	 * 
+	 * @RequestParam(value = "page", defaultValue = "0") Integer page,
+	 * 
+	 * @RequestParam(value = "linesPerPage", defaultValue = "24") Integer
+	 * linesPerPage,
+	 * 
+	 * @RequestParam(value = "orderBy", defaultValue = "nome") String orderBy,
+	 * 
+	 * @RequestParam(value = "direction", defaultValue = "ASC") Sort.Direction
+	 * direction) { String nomeDecode = URL.decodeParam(nome); List<Integer>
+	 * idUsuarios = Arrays.asList(usuarios.split(",")).stream().map(x ->
+	 * Integer.parseInt(x)) .collect(Collectors.toList());
+	 * 
+	 * Page<Sensor> sensores = SensorService.search(nomeDecode, idUsuarios, page,
+	 * linesPerPage, direction, orderBy); return
+	 * ResponseEntity.ok().body(sensores.map(x -> new SensorDTO(x))); }
+	 */
 
 	@PostMapping
 	public ResponseEntity<SensorDTO> insert(@Valid @RequestBody SensorDTO dto) {
