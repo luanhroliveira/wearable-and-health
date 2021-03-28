@@ -1,12 +1,8 @@
 package com.luanhroliveira.wearableandhealth.repositories;
 
-import java.util.List;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.luanhroliveira.wearableandhealth.entitites.Monitoramento;
 import com.luanhroliveira.wearableandhealth.entitites.Sensor;
@@ -19,7 +15,7 @@ public interface MonitoramentoRepository extends JpaRepository<Monitoramento, Lo
 	 * ) Page<Monitoramento> search(@Param("nome") String nome, @Param("usuarios")
 	 * List<Usuario> usuarios, Pageable pageRequest);
 	 */
-	
+
 	Page<Monitoramento> findBySensorAndUsuario(Sensor sensor, Usuario usuario, Pageable pageRequest);
 
 }

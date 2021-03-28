@@ -5,17 +5,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.luanhroliveira.wearableandhealth.dto.SensorDTO;
 import com.luanhroliveira.wearableandhealth.entitites.Sensor;
-import com.luanhroliveira.wearableandhealth.entitites.Usuario;
 import com.luanhroliveira.wearableandhealth.repositories.SensorRepository;
-import com.luanhroliveira.wearableandhealth.repositories.UsuarioRepository;
 import com.luanhroliveira.wearableandhealth.services.exceptions.DataIntegrityException;
 import com.luanhroliveira.wearableandhealth.services.exceptions.ResourceNotFoundException;
 
@@ -24,8 +19,9 @@ public class SensorService {
 
 	@Autowired
 	private SensorRepository sensorRepository;
-	@Autowired
-	private UsuarioRepository usuarioRepository;
+	/*
+	 * @Autowired private UsuarioRepository usuarioRepository;
+	 */
 
 	@Transactional(readOnly = true)
 	public List<SensorDTO> findAll() {
